@@ -36,6 +36,25 @@
             {{ course.category }}
             <mat-icon aria-hidden="false" aria-label="Categoria do Curso" fontIcon="{{ course.category | category }}"></mat-icon>
           </td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef>
+            <button mat-mini-fab color="accent" aria-label="Adicionar um Curso" (click)="onAdd()">
+              <mat-icon>add</mat-icon>
+            </button>
+          </mat-header-cell>
+
+          <mat-cell *matCellDef="let course">
+            <button mat-icon-button color="primary" aria-label="Editar Curso">
+              <mat-icon>edit</mat-icon>
+            </button>
+
+            <button mat-icon-button color="warn" aria-label="Editar Curso">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
 
         </ng-container>
 
