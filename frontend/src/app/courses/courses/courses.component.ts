@@ -14,12 +14,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CoursesComponent
 {
   public  courses$ : Observable<Course[]>;
-  public  displayedColumns    = [ 'name', 'category', 'actions' ];
+  // public  displayedColumns    = [ 'name', 'category', 'actions' ];
 
   constructor (
                 private coursesService  : CoursesService,
-                private router          : Router,
-                private route           : ActivatedRoute,
+                // private router          : Router,
+                // private route           : ActivatedRoute,
                 public  dialog          : MatDialog
               )
   {
@@ -39,9 +39,9 @@ export class CoursesComponent
     });
   }
 
-  onAdd()
-  {
-    this.router.navigate( [ 'new' ], { relativeTo: this.route } );
-  }
+  // onAdd()
+  // {
+  //   this.router.navigate( [ 'new' ], { relativeTo: this.route } );
+  // }
 
 }
