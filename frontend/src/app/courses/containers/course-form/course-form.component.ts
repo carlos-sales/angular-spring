@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, NonNullableFormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { CoursesService } from '../../services/courses.service';
@@ -14,14 +14,14 @@ export class CourseFormComponent implements OnInit
 {
   form: FormGroup
 
-  constructor(  private formBuilder: FormBuilder,
+  constructor(  private formBuilder: NonNullableFormBuilder,
                 private service    : CoursesService,
                 private location   : Location,
                 private _snackBar  : MatSnackBar )
   {
     this.form = this.formBuilder.group({
-      name    : [ null ],
-      category: [ null ]
+      name    : [ '' ],
+      category: [ '' ]
     });
   }
 
