@@ -27,7 +27,7 @@ export class CoursesListComponent
 
   onEdit( course: Course )
   {
-
+    this.edit.emit( course );
   }
 
 }
