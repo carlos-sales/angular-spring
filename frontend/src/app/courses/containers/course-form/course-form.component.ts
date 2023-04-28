@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { CoursesService } from '../services/courses.service';
+import { CoursesService } from '../../services/courses.service';
 
 @Component({
   selector: 'app-course-form',
