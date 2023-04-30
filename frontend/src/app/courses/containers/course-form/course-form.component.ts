@@ -41,7 +41,6 @@ export class CourseFormComponent implements OnInit
 
   onSubmit()
   {
-    // console.log( this.form.value );
     this.service.save( this.form.value )
       .subscribe(
         result  => this.onSuccess(),
