@@ -7,6 +7,7 @@ import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/err
 
 import { Course } from '../../model/course';
 import { CoursesService } from '../../services/courses.service';
+import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-courses',
@@ -58,16 +59,27 @@ export class CoursesComponent
 
   onRemove( course: Course )
   {
-    this.coursesService.remove( course._id ).subscribe(
-      () => {
-        this.refresh();
-        this.snackBar.open( "Curso removido com sucesso!", 'X', { duration: 5000,
-                                                                  verticalPosition: 'top',
-                                                                  horizontalPosition: 'center'
-                                                                 } );
-      },
-      error => this.onError( "Erro ao tentar remover curso." )
-    );
+    const dialogRef = this.dialog.open( ConfirmationDialogComponent, {
+      data: "Tem certeza que deseja remover esse curso?",
+    });
+
+    dialogRef.afterClosed().subscribe( ( result: boolean ) => {
+      if( result )
+      {
+        this.coursesService.remove( course._id ).subscribe(
+          () => {
+            this.refresh();
+            this.snackBar.open( "Curso removido com sucesso!", 'X', { duration: 5000,
+                                                                      verticalPosition: 'top',
+                                                                      horizontalPosition: 'center'
+                                                                     } );
+          },
+          () => this.onError( "Erro ao tentar remover curso." )
+        );
+      }
+
+    });
+
   }
 
 }
