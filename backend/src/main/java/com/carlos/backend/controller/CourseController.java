@@ -3,7 +3,6 @@ package com.carlos.backend.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -75,6 +74,7 @@ public class CourseController
         return courseRepository.findById( id )
             .map( recordFound -> {
                 courseRepository.deleteById( id );
+                // recordFound.setStatus("Inativo");
                 return ResponseEntity.noContent().<Void>build();
             })
             .orElse( ResponseEntity.notFound().build() );

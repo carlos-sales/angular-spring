@@ -1,5 +1,7 @@
 package com.carlos.backend.model;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,6 +18,8 @@ import lombok.Data;
 
 @Data
 @Entity
+@SQLDelete(sql = "UPDATE Course SET status = 'Inativo' WHERE id = ?")
+@Where(clause = "status <> 'Inativo'")
 public class Course 
 {
     @Id
@@ -35,4 +39,9 @@ public class Course
     @Column(length = 10, nullable = false)
     private String category;
     
+    @NotNull
+    @Length(max = 10)
+    @Pattern(regexp = "Ativo|Inativo")
+    @Column(length = 10, nullable = false)
+    private String status = "Ativo";
 }
