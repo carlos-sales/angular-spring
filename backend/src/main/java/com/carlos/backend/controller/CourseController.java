@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.carlos.backend.model.Course;
@@ -41,39 +42,27 @@ public class CourseController
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Course> findById( @PathVariable @NotNull @Positive Long id )
+    public Course findById( @PathVariable @NotNull @Positive Long id )
     {
-        return courseService.findById( id )
-            .map( recordFound -> ResponseEntity.ok().body(recordFound) )
-            .orElse( ResponseEntity.notFound().build() );
+        return courseService.findById( id );
     }
 
-    // @RequestMapping( method = RequestMethod.POST )
     @PostMapping
     public Course create( @RequestBody @Valid Course course )
     {
-        // System.out.println( record.getName() );
         return courseService.create( course );
-        // return ResponseEntity
-        //     .status( HttpStatus.CREATED )
-        //     .body( courseRepository.save( course ) );
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Course> update( @PathVariable @NotNull @Positive Long id, @RequestBody @Valid Course course )
+    public Course update( @PathVariable @NotNull @Positive Long id, @RequestBody @Valid Course course )
     {
-        return courseService.update( id, course )
-            .map( recordFound -> ResponseEntity.ok().body(recordFound) )
-            .orElse( ResponseEntity.notFound().build() );
+        return courseService.update( id, course );
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete( @PathVariable @NotNull @Positive Long id )
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete( @PathVariable @NotNull @Positive Long id )
     {
-        if( courseService.delete( id ) )
-        {
-            return ResponseEntity.noContent().<Void>build();
-        }
-        return ResponseEntity.notFound().build();
+        courseService.delete( id );
     }
 }
