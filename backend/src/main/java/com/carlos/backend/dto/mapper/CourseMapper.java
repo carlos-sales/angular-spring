@@ -3,6 +3,7 @@ package com.carlos.backend.dto.mapper;
 import org.springframework.stereotype.Component;
 
 import com.carlos.backend.dto.CourseDTO;
+import com.carlos.backend.enums.Category;
 import com.carlos.backend.model.Course;
 
 @Component
@@ -14,7 +15,7 @@ public class CourseMapper
         {
             return null;
         }
-        return new CourseDTO( course.getId(), course.getName(), course.getCategory() );
+        return new CourseDTO( course.getId(), course.getName(), "FRONT-END" );
     }
 
     public Course toEntity( CourseDTO courseDTO )
@@ -29,7 +30,7 @@ public class CourseMapper
             course.setId( courseDTO.id() );
         }
         course.setName( courseDTO.name() );
-        course.setCategory( courseDTO.category() );
+        course.setCategory( Category.FRONT_END );
 
         return course;
     }

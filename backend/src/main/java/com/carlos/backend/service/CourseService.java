@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.carlos.backend.dto.CourseDTO;
 import com.carlos.backend.dto.mapper.CourseMapper;
+import com.carlos.backend.enums.Category;
 import com.carlos.backend.exception.RecordNotFoundException;
 import com.carlos.backend.repository.CourseRepository;
 
@@ -54,7 +55,7 @@ public class CourseService
         return courseRepository.findById( id )
             .map( recordFound -> {
                 recordFound.setName(course.name());
-                recordFound.setCategory(course.category());
+                recordFound.setCategory(Category.FRONT_END);
                 return courseMapper.toDTO( courseRepository.save( recordFound ) );
             })
             .orElseThrow( () -> new RecordNotFoundException(id) );
