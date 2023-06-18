@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 
 import com.carlos.backend.enums.Category;
 import com.carlos.backend.model.Course;
+import com.carlos.backend.model.Lesson;
 import com.carlos.backend.repository.CourseRepository;
 
 @SpringBootApplication
@@ -24,6 +25,12 @@ public class BackendApplication {
 			Course c = new Course();
 			c.setName( "Angular com Spring");
 			c.setCategory( Category.FRONT_END );
+
+			Lesson l = new Lesson();
+			l.setName("Introdução");
+			l.setYoutubeUrl("Nb4uxLxdvxo");
+			l.setCourse(c);
+			c.getLessons().add( l );
 
 			courseRepository.save( c );
 		};
