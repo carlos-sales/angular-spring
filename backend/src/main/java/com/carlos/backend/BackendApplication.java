@@ -31,6 +31,12 @@ public class BackendApplication {
 			l.setYoutubeUrl("Nb4uxLxdvxo");
 			l.setCourse(c);
 			c.getLessons().add( l );
+			
+			Lesson l1 = new Lesson();
+			l1.setName("Introdução");
+			l1.setYoutubeUrl("Nb4uxLxdabc");
+			l1.setCourse(c);
+			c.getLessons().add( l1 );
 
 			courseRepository.save( c );
 		};
