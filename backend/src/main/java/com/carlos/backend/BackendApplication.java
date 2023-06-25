@@ -33,7 +33,7 @@ public class BackendApplication {
 			c.getLessons().add( l );
 			
 			Lesson l1 = new Lesson();
-			l1.setName("Introdução");
+			l1.setName("Angular + Spring");
 			l1.setYoutubeUrl("Nb4uxLxdabc");
 			l1.setCourse(c);
 			c.getLessons().add( l1 );
