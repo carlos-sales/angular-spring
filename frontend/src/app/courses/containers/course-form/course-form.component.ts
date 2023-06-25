@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { CoursesService } from '../../services/courses.service';
 import { Course } from '../../model/course';
+import { Lesson } from '../../model/lesson';
 
 @Component({
   selector: 'app-course-form',
@@ -14,7 +15,7 @@ import { Course } from '../../model/course';
 })
 export class CourseFormComponent implements OnInit
 {
-  form: FormGroup
+  form!: FormGroup;
 
   constructor(  private formBuilder: NonNullableFormBuilder,
                 private service    : CoursesService,
@@ -22,21 +23,43 @@ export class CourseFormComponent implements OnInit
                 private route      : ActivatedRoute,
                 private _snackBar  : MatSnackBar )
   {
-    this.form = this.formBuilder.group({
-      _id     : [ '' ],
-      name    : [ '', [ Validators.required, Validators.minLength(5), Validators.maxLength(100) ] ],
-      category: [ '', [ Validators.required ] ]
-    });
+
   }
 
   ngOnInit(): void
   {
     const course: Course =  this.route.snapshot.data[ 'course' ];
-    this.form.setValue({
-      _id     : course._id,
-      name    : course.name,
-      category: course.category
+    this.form = this.formBuilder.group({
+      _id     : [ course._id ],
+      name    : [ course.name, [ Validators.required, Validators.minLength(5), Validators.maxLength(100) ] ],
+      category: [ course.category, [ Validators.required ] ],
+      lessons : this.formBuilder.array( this.retrieveLessons( course ) )
     });
+  }
+
+  private retrieveLessons( course: Course )
+  {
+    const lessons = [];
+
+    if( course?.lessons )
+    {
+      course.lessons.forEach( lesson => lessons.push( this.createLesson( lesson ) ) )
+    }
+    else
+    {
+      lessons.push( this.createLesson() );
+    }
+
+    return lessons;
+  }
+
+  private createLesson( lesson: Lesson = { id: '', name: '', youtubeUrl: '' } )
+  {
+    return this.formBuilder.group({
+      id        : [ lesson.id ],
+      name      : [ lesson.name ],
+      youtubeUrl: [ lesson.youtubeUrl ]
+    })
   }
 
   onSubmit()
@@ -75,7 +98,7 @@ export class CourseFormComponent implements OnInit
     if( field?.hasError( 'minlength' ) )
     {
       const requiredLength = field.errors ? field.errors[ 'minlength' ][ 'requiredLength' ] : 5;
-      return `Tamanho mínima precisa ser de ${ requiredLength } caracteres.`;
+      return `Tamanho mínimo precisa ser de ${ requiredLength } caracteres.`;
     }
     if( field?.hasError( 'maxlength' ) )
     {
