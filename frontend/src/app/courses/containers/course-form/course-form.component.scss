@@ -4,24 +4,24 @@ mat-card
   margin: 2em auto;
   text-align: center;
 }
-
 mat-card-actions
 {
   display: block;
 }
-
 .full-width
 {
   width: 100%;
 }
-
 .min-width
 {
   width: 100%;
   min-width: 150px;
 }
-
 button
 {
   margin: 0 5px;
+}
+.form-array-error
+{
+  text-align: left;
 }
