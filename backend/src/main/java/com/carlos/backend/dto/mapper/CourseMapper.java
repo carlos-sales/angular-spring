@@ -1,6 +1,7 @@
 package com.carlos.backend.dto.mapper;
 
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
@@ -9,6 +10,7 @@ import com.carlos.backend.dto.CourseDTO;
 import com.carlos.backend.dto.LessonDTO;
 import com.carlos.backend.enums.Category;
 import com.carlos.backend.model.Course;
+import com.carlos.backend.model.Lesson;
 
 @Component
 public class CourseMapper 
@@ -42,6 +44,15 @@ public class CourseMapper
         course.setName( courseDTO.name() );
         course.setCategory( convertCategoryValue( courseDTO.category() ) );
 
+        List<Lesson> lessons = courseDTO.lessons().stream().map(lessonDTO -> {
+            var lesson = new Lesson();
+            lesson.setId(lessonDTO.id());
+            lesson.setName(lessonDTO.name());
+            lesson.setYoutubeUrl(lessonDTO.youtubeUrl());
+            lesson.setCourse(course);
+            return lesson;
+        }).collect(Collectors.toList());
+        course.setLessons(lessons);
         return course;
     }
 
