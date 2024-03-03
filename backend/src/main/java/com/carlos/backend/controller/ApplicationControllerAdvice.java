@@ -48,7 +48,7 @@ public class ApplicationControllerAdvice
             String type = ex.getRequiredType().getName();
             String[] typeParts = type.split("\\.");
             String typeName = typeParts[typeParts.length - 1];
-            return ex.getName() + " deve ser do tipo " + typeName;
+            return ex.getName() + " precisa ser do tipo " + typeName;
         }
         return "Tipo do argumento não válido";
     }
